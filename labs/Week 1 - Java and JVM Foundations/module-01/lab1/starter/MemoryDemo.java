@@ -7,6 +7,10 @@ public class MemoryDemo {
 
         // TODO: loop i from 1 to 100000; add new Employee(i, "Employee-" + i)
         // TODO: print "Created " + employees.size() + " employees"
-        throw new UnsupportedOperationException("TODO");
+        for(int i =1; i<=100000;i++){
+            employees.add(new Employee(i, "Employee-" + i));
+        }
+        System.out.println("Created " + employees.size() + " employees");
+
     }
 }
