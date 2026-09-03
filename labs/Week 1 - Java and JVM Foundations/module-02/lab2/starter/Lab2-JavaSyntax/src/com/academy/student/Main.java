@@ -38,7 +38,13 @@ public class Main {
                     return;
                 }
                 // TODO (bonus / full path): wire cases 6–10 to StudentManager bonus methods
-                case 6, 7, 8, 9, 10 -> System.out.println("Bonus menu — complete after core path (or as homework).");
+
+                case 6 -> studentManager.displayTopStudent();
+                case 7 -> studentManager.displayLowestMarks();
+                case 8 -> studentManager.displayPassFailReport();
+                case 9 -> studentManager.displayStudentsSortedByMarks();
+                case 10 -> studentManager.displayClassStatistics();
+
                 default -> {
                     System.out.println("Invalid Input");
                     System.out.println("Please Try Again.");
