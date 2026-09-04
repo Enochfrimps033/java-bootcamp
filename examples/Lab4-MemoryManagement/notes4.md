@@ -1,0 +1,24 @@
+
+
+Module 4 — Key Takeaways
+
+\-Stack stores active method data, local primitives, and local references.
+
+\-Heap stores objects and arrays created with new.
+
+\-Garbage Collection (GC) reclaims heap memory from objects that are no longer strongly reachable.
+
+\-System.gc() only requests garbage collection.
+
+\-A memory leak happens when code keeps references to objects it no longer needs, so GC cannot collect them.
+
+\-Strong references keep objects alive.
+
+\-Weak references do not prevent objects from being garbage collected.
+
+\-Creating more objects uses more heap memory and can increase GC pressure.
+
+\-ArrayList usually uses less memory than LinkedList.
+
+\-G1 is a common general-purpose Java garbage collector.
+
