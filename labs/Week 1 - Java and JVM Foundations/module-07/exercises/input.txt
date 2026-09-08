@@ -1,0 +1,4 @@
+
+Hello
+This is line 2
+Java file reading works

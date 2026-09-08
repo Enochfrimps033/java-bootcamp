@@ -40,18 +40,107 @@ public class ATMService {
         // TODO: on bad PIN decrement attempts + throw InvalidPinException
         // TODO: on success set loggedInAccount, reset attempts, log + "Login Successful"
         // TODO: catch AccountNotFoundException | InvalidPinException; finally printReturnMessage
-        throw new UnsupportedOperationException("TODO");
+
+        if(loggedInAccount != null){
+            System.out.println("You are already logged in");
+            return;
+        }
+
+        System.out.print("Enter your account number: ");
+        String accountNumber = scanner.nextLine();
+
+        try {
+            Account account = accounts.get(accountNumber);
+            if (account == null) {
+                throw new AccountNotFoundException("Account not found.");
+            }
+
+            System.out.print("Enter your pin : ");
+            String pin = scanner.nextLine();
+
+
+            if (!account.getPin().equals(pin)) {
+                pinAttemptsRemaining--;
+                throw new InvalidPinException("Invalid PIN. Attempts remaining: " , pinAttemptsRemaining
+                );
+            }
+
+            loggedInAccount = account;
+            pinAttemptsRemaining = MAX_PIN_ATTEMPTS;
+            System.out.println("Login Successful");
+
+
+        }  catch(AccountNotFoundException | InvalidPinException ex) {
+            System.out.println(ex.getMessage());
+
+        }finally{
+        printReturnMessage();
+    }
+
     }
 
     public void deposit() {
         // TODO: executeTransaction("Deposit", ...) — requireLogin, readAmount, deposit, record, print
-        throw new UnsupportedOperationException("TODO");
-    }
+            executeTransaction("Deposit", ()-> {
+                requireLogin();
 
-    public void withdraw() {
-        // TODO: executeTransaction("Withdraw", ...) — requireLogin, readAmount, withdraw, record, print
-        throw new UnsupportedOperationException("TODO");
+                double amount = readAmount("Enter amount: ");
+
+                loggedInAccount.deposit(amount);
+
+                sessionTransactions.add(
+                        new Transaction(
+                                loggedInAccount.getAccountNumber(),
+                                "Deposit",
+                                amount,
+                                true,
+                                "Deposit successful"
+                        )
+
+                        );
+
+                System.out.println("Deposit successful.");
+
+
+            });
+
     }
+// hpw does it know if it deposit or withdraw? look for .withdraw(amount);
+    public void withdraw() {
+            // TODO: executeTransaction("Withdraw", ...) — requireLogin, readAmount, withdraw, record, print
+            executeTransaction("Withdraw", () -> {
+                requireLogin();
+
+                double amount = readAmount("Enter amount: ");
+                loggedInAccount.withdraw(amount);
+
+                sessionTransactions.add(
+                        new Transaction(
+                                loggedInAccount.getAccountNumber(),
+                                "Withdraw",
+                                amount,
+                                true,
+                                "Withdraw successful"
+                        )
+
+                );
+
+                System.out.println( "Withdraw successful");
+
+
+            });
+
+
+        }
+
+
+
+
+
+
+
+
+
 
     public void displayBalance() {
         executeTransaction("Balance Inquiry", () -> {
