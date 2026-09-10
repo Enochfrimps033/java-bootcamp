@@ -188,9 +188,115 @@ useful for showing whether references point to the same or different objects.
 
 
 
-\----------------module------------------------
+\----------------module 5------------------------
+
+Interface → Concrete
+
+Set<Integer> x = new TreeSet<>();
 
 
 
-list of data structure and the operation you can do on them
+Use when:
+
+\- you only need general Set behavior
+
+\- you want flexibility
+
+\- usually preferred in normal Java code
+
+
+
+
+
+Concrete → Concrete
+
+TreeSet<Integer> x = new TreeSet<>();
+
+
+
+Use when:
+
+\- you specifically need TreeSet functionality
+
+\- you want methods specific to that class
+
+
+
+
+
+Collection              ← interface
+
+│
+
+├── List                 ← interface
+
+│   ├── ArrayList        ← concrete class
+
+│   └── LinkedList       ← concrete class
+
+│
+
+├── Set                  ← interface
+
+│   ├── HashSet          ← concrete class
+
+│   └── TreeSet          ← concrete class
+
+│
+
+└── Queue                ← interface
+
+
+
+Map                     ← interface
+
+├── HashMap             ← concrete class
+
+├── TreeMap             ← concrete class
+
+└── LinkedHashMap       ← concrete class
+
+
+
+hashCode() → helps find the bucket
+
+equals()   → confirms the exact object/key
+
+
+
+| Interface | What it represents                     | Common concrete classes               |
+
+| --------- | -------------------------------------- | ------------------------------------- |
+
+| `List`    | Ordered collection, duplicates allowed | `ArrayList`, `LinkedList`             |
+
+| `Set`     | Unique values                          | `HashSet`, `LinkedHashSet`, `TreeSet` |
+
+| `Map`     | Key → value pairs                      | `HashMap`, `LinkedHashMap`, `TreeMap` |
+
+
+
+### \#USING CONCRETE METHOD ON BOTH SIDE 
+
+Using an interface on the left side and a concrete class on the right side is mainly about flexibility. The interface describes the general behavior your code needs, while the concrete class decides how that behavior is actually implemented. For example, Set means you want a collection with no duplicates, while HashSet is one specific way Java implements a Set.
+
+
+
+This makes your code less tightly connected to one implementation. If you later decide you want a sorted set instead, you can often replace HashSet with TreeSet without changing the rest of your code. This idea is commonly called programming to an interface.
+
+
+
+Set<String> names = new HashSet<>();
+
+Set<String> names = new TreeSet<>();
+
+List<String> names = new ArrayList<>();
+
+List<String> names = new LinkedList<>();
+
+Map<String, Integer> scores = new HashMap<>();
+
+
+
+You can still write HashSet<String> names = new HashSet<>();, but that ties the variable more specifically to HashSet.
 
